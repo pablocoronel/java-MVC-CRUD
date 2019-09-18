@@ -1,4 +1,5 @@
 Videos:
 
-Package
-249:  MVC II, CRUD I => context.xml
+Package com.pildorasinformaticas.productos:
+249: MVC II, CRUD I => context.xml
+250: MVC III, CRUD II => ServletPruebas.java
