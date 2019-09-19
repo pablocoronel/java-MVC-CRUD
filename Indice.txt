@@ -3,3 +3,4 @@ Videos:
 Package com.pildorasinformaticas.productos:
 249: MVC II, CRUD I => context.xml
 250: MVC III, CRUD II => ServletPruebas.java
+251: MVC IV, CRUD III => Producto.java, Modelo_Producto.java
