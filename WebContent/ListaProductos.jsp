@@ -1,28 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ page import="java.util.*, com.pildorasinformaticas.productos.*"%>
+<!-- importa los tag core -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
 <html>
 <head>
 
-<%
-	// obtiene los productos del controlador (servlet)
-	List<Producto> los_productos = (List<Producto>) request.getAttribute("LISTA_PRODUCTOS");
-%>
 
 
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 
 <style type="text/css">
-	.cabecera{
-		border: solid #FF0000 1px;
-		background-color: teal;
-		color: white;
-	}
+.cabecera {
+	border: solid #FF0000 1px;
+	background-color: teal;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -37,22 +34,18 @@
 			<td class="cabecera">País de origen</td>
 		</tr>
 
-		<%
-			for (Producto tempProd : los_productos) {
-		%>
-		<tr>
-			<td><%= tempProd.getCodigo_articulo() %></td>
-			<td><%= tempProd.getSeccion() %></td>
-			<td><%= tempProd.getNombre_articulo() %></td>
-			<td><%= tempProd.getPrecio() %></td>
-			<td><%= tempProd.getFecha() %></td>
-			<td><%= tempProd.getImportado() %></td>
-			<td><%= tempProd.getPais_origen() %></td>
-		</tr>
-		<%
-			}
-		%>
-
+		<!-- LISTA_PRODUCTOS es el atributo pasado desde el controller -->
+		<c:forEach var="tempProd" items="${LISTA_PRODUCTOS}">
+			<tr>
+				<td>${tempProd.codigo_articulo}</td>
+				<td>${tempProd.seccion}</td>
+				<td>${tempProd.nombre_articulo}</td>
+				<td>${tempProd.precio}</td>
+				<td>${tempProd.fecha}</td>
+				<td>${tempProd.importado}</td>
+				<td>${tempProd.pais_origen}</td>
+			</tr>
+		</c:forEach>
 	</table>
 </body>
 </html>
