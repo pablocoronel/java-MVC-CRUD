@@ -20,9 +20,18 @@
 	background-color: teal;
 	color: white;
 }
+
+#botonera{
+	margin-bottom: 20px;
+	background-color: olive;
+}
 </style>
 </head>
 <body>
+	<div id="botonera">
+		<input type="button" name="agregar" value="Agregar" onclick="window.location.href='inserta_producto.jsp'">
+	</div>
+
 	<table>
 		<tr>
 			<td class="cabecera">Códogo Articulo</td>

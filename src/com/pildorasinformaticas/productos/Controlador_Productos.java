@@ -48,6 +48,52 @@ public class Controlador_Productos extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// leer el parametro que le llega desde el formulario
+		String comando = request.getParameter("instruccion");
+
+		// si no se envia el parametro, listar los productos
+		if (comando == null) {
+			comando = "listar";
+		}
+
+		// redirigir el flujo de ejecucion al metodo adecuado
+		switch (comando) {
+		case "listar":
+			obtenerProductos(request, response);
+			break;
+
+		case "insertar":
+			agregarProductos(request, response);
+			break;
+		default:
+			obtenerProductos(request, response);
+			break;
+		}
+
+	}
+
+	private void agregarProductos(HttpServletRequest request, HttpServletResponse response) {
+		// leer la informacion del formulario
+		String codigo_articulo = request.getParameter("codigo_articulo");
+		String seccion = request.getParameter("seccion");
+		String nombre_articulo = request.getParameter("nombre_articulo");
+//		Date fecha = request.getParameter("fecha");
+//		double precio = request.getParameter("precio");
+		String importado = request.getParameter("importado");
+		String pais_origen = request.getParameter("pais_origen");
+
+		// crear un objeto de tipo Producto
+
+		// enviar objeto al modelo
+
+		// insertar el objeto Producto en la BD
+
+		// volver al listado de productos
+
+	}
+
+	private void obtenerProductos(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
 		List<Producto> productos;
 
 		try {
@@ -66,7 +112,6 @@ public class Controlador_Productos extends HttpServlet {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-
 	}
 
 }
