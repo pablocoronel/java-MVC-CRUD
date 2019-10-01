@@ -9,3 +9,4 @@ Package com.pildorasinformaticas.productos:
 254: MVC VII, CRUD VI => ListaProductos.jsp
 255: MVC VIII, CRUD VII => ListaProductos.jsp, inserta_producto.jsp
 256: MVC IX, CRUD VIII => Controlador_Productos.java, inserta_producto.jsp
+257: MVC X, CRUD IX => Controlador_Productos.java, Modelo_Producto.java

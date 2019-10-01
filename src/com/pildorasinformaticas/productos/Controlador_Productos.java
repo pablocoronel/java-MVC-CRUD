@@ -1,6 +1,9 @@
 package com.pildorasinformaticas.productos;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.annotation.Resource;
@@ -73,22 +76,41 @@ public class Controlador_Productos extends HttpServlet {
 	}
 
 	private void agregarProductos(HttpServletRequest request, HttpServletResponse response) {
-		// leer la informacion del formulario
+		/**
+		 * 1ro leer la informacion del formulario
+		 */
 		String codigo_articulo = request.getParameter("codigo_articulo");
 		String seccion = request.getParameter("seccion");
 		String nombre_articulo = request.getParameter("nombre_articulo");
-//		Date fecha = request.getParameter("fecha");
-//		double precio = request.getParameter("precio");
+
+		SimpleDateFormat formato_fecha = new SimpleDateFormat("yyyy-MM-dd");
+		Date fecha = null;
+		try {
+			fecha = formato_fecha.parse(request.getParameter("fecha"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		double precio = Double.parseDouble(request.getParameter("precio"));
 		String importado = request.getParameter("importado");
 		String pais_origen = request.getParameter("pais_origen");
 
-		// crear un objeto de tipo Producto
+		/**
+		 * 2do crear un objeto de tipo Producto
+		 */
+		Producto nuevo_producto = new Producto(codigo_articulo, seccion, nombre_articulo, precio, fecha, importado,
+				pais_origen);
 
-		// enviar objeto al modelo
+		/**
+		 * 3ro enviar objeto al modelo
+		 */
+		modelo_producto.agregarProducto(nuevo_producto);
 
-		// insertar el objeto Producto en la BD
-
-		// volver al listado de productos
+		/**
+		 * 4to volver al listado de productos
+		 */
+		obtenerProductos(request, response);
 
 	}
 

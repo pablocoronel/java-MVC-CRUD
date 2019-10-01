@@ -66,4 +66,23 @@ public class Modelo_Producto {
 
 		return productos;
 	}
+
+	public void agregarProducto(Producto nuevo_producto) {
+		// TODO Auto-generated method stub
+		/**
+		 * 1ro obtener a la conexion ala BD
+		 */
+
+		/**
+		 * 2do crear SQL
+		 */
+
+		/**
+		 * 3ro establecer los parametros para el producto
+		 */
+
+		/**
+		 * 4to ejecutar la instruccion SQL
+		 */
+	}
 }
