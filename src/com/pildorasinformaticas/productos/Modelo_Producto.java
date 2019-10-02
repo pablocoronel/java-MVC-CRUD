@@ -72,17 +72,53 @@ public class Modelo_Producto {
 		/**
 		 * 1ro obtener a la conexion ala BD
 		 */
+		Connection mi_conexion = null;
+		PreparedStatement mi_statement = null;
+
+		try {
+			mi_conexion = origen_datos.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		/**
-		 * 2do crear SQL
+		 * 2do crear SQL y statement (preparada)
 		 */
+
+		String sql = "INSERT INTO productos (CÓDIGO_ARTÍCULO, SECCIÓN, NOMBRE_ARTÍCULO, PRECIO, FECHA, IMPORTADO, PAÍS_DE_ORIGEN) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		/**
 		 * 3ro establecer los parametros para el producto
 		 */
 
+		try {
+			mi_statement = mi_conexion.prepareStatement(sql);
+			mi_statement.setString(1, nuevo_producto.getCodigo_articulo());
+			mi_statement.setString(2, nuevo_producto.getSeccion());
+			mi_statement.setString(3, nuevo_producto.getNombre_articulo());
+			mi_statement.setDouble(4, nuevo_producto.getPrecio());
+
+			// es distinta la clase Date
+			java.util.Date utilDate = nuevo_producto.getFecha();
+			java.sql.Date fechaConvertida = new java.sql.Date(utilDate.getTime());
+			mi_statement.setDate(5, fechaConvertida);
+
+			mi_statement.setInt(6, Integer.parseInt(nuevo_producto.getImportado()));
+			mi_statement.setString(7, nuevo_producto.getPais_origen());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		/**
 		 * 4to ejecutar la instruccion SQL
 		 */
+		try {
+			mi_statement.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
