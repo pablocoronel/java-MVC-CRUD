@@ -41,10 +41,18 @@
 			<td class="cabecera">Precio</td>
 			<td class="cabecera">Importado</td>
 			<td class="cabecera">País de origen</td>
+			<td class="cabecera">Acción</td>
 		</tr>
 
 		<!-- LISTA_PRODUCTOS es el atributo pasado desde el controller -->
 		<c:forEach var="tempProd" items="${LISTA_PRODUCTOS}">
+			
+			<!-- link de editar, lo usa el tag A, (value es el Controller a donde va) -->
+			<c:url var="linkTemp" value="Controlador_Productos">
+				<c:param name="instruccion" value="editar"></c:param>
+				<c:param name="id" value="${tempProd.codigo_articulo}"></c:param>
+			</c:url>
+			
 			<tr>
 				<td>${tempProd.codigo_articulo}</td>
 				<td>${tempProd.seccion}</td>
@@ -53,6 +61,7 @@
 				<td>${tempProd.fecha}</td>
 				<td>${tempProd.importado}</td>
 				<td>${tempProd.pais_origen}</td>
+				<td><a href="${linkTemp }">Editar</a></td>
 			</tr>
 		</c:forEach>
 	</table>
