@@ -49,7 +49,7 @@
 			
 			<!-- link de editar, lo usa el tag A, (value es el Controller a donde va) -->
 			<c:url var="linkTemp" value="Controlador_Productos">
-				<c:param name="instruccion" value="editar"></c:param>
+				<c:param name="instruccion" value="ver"></c:param>
 				<c:param name="id" value="${tempProd.codigo_articulo}"></c:param>
 			</c:url>
 			

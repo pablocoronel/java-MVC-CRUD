@@ -68,11 +68,36 @@ public class Controlador_Productos extends HttpServlet {
 		case "insertar":
 			agregarProductos(request, response);
 			break;
+
+		case "ver":
+			try {
+				verProducto(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
 		default:
 			obtenerProductos(request, response);
 			break;
 		}
 
+	}
+
+	private void verProducto(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// Leer el codigo de articulo pasado en el request
+		String codigo_articulo = request.getParameter("id");
+
+		// Preguntarle al modelo si está disponible el Producto y recibirlo
+		Producto el_producto = this.modelo_producto.getProducto(codigo_articulo);
+
+		// Setear en el request un atributo que almacene el Producto
+		request.setAttribute("PRODUCTO_EDITAR", el_producto);
+
+		// enviar datos al formulario de actualizacion, mediante un dispatcher
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/actualizar_producto.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void agregarProductos(HttpServletRequest request, HttpServletResponse response) {

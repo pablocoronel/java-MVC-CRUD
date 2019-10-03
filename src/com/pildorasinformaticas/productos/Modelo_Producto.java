@@ -121,4 +121,69 @@ public class Modelo_Producto {
 			e.printStackTrace();
 		}
 	}
+
+	public Producto getProducto(String codigo_articulo) throws Exception {
+		// TODO Auto-generated method stub
+		Producto el_producto = null;
+		Connection mi_conexion = null;
+		PreparedStatement mi_statement = null;
+		ResultSet mi_resultset = null;
+
+		try {
+			/**
+			 * 1ro establecer conexion ala BD
+			 */
+
+			mi_conexion = this.origen_datos.getConnection();
+
+			/**
+			 * 2do crear SQL de busqueda del Producto
+			 */
+
+			String sql = "SELECT * FROM productos WHERE CÓDIGO_ARTÍCULO = ?";
+
+			/**
+			 * 3ro crear la consulta preparada
+			 */
+			mi_statement = mi_conexion.prepareStatement(sql);
+
+			/**
+			 * 4to establecer los parametros
+			 */
+			mi_statement.setString(1, codigo_articulo);
+
+			/**
+			 * 5to ejecutar la consulta
+			 */
+			mi_resultset = mi_statement.executeQuery(sql);
+
+			/**
+			 * 6to crear el objeto a retornar, con los datos devueltos por la consulta
+			 */
+
+			// si hay un registro
+			if (mi_resultset.next()) {
+				String seccion = mi_resultset.getString("SECCIÓN");
+				String nombre_articulo = mi_resultset.getString("NOMBRE_ARTÍCULO");
+				double precio = mi_resultset.getDouble("PRECIO");
+				Date fecha = mi_resultset.getDate("FECHA");
+				String importado = mi_resultset.getString("IMPORTADO");
+				String pais_origen = mi_resultset.getString("PAÍS_DE_ORIGEN");
+
+				// es new, xq en la declaracion es null, hay que instanciar, no usar los set
+				// sobre un null
+				el_producto = new Producto(seccion, nombre_articulo, precio, fecha, importado, pais_origen);
+			} else {
+				throw new Exception("No se encontró el articulo: " + codigo_articulo);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		/**
+		 * 7mo retornar el objeto
+		 */
+		return el_producto;
+	}
 }

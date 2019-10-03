@@ -12,3 +12,4 @@ Package com.pildorasinformaticas.productos:
 257: MVC X, CRUD IX => Controlador_Productos.java, Modelo_Producto.java
 258: MVC XI, CRUD X => Controlador_Productos.java, Modelo_Producto.java
 259: MVC XII, CRUD XI => ListaProductos.jsp
+260: MVC XIII, CRUD XII => ListaProductos.jsp, Controlador_Productos.java
