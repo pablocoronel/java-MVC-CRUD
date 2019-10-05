@@ -249,4 +249,35 @@ public class Modelo_Producto {
 			e.printStackTrace();
 		}
 	}
+
+	public void eliminarProducto(String codigo_producto) throws Exception {
+		// TODO Auto-generated method stub
+		Connection mi_conexion = null;
+		PreparedStatement mi_statement = null;
+
+		/**
+		 * 1ro conexion a la BD
+		 */
+		mi_conexion = this.origen_datos.getConnection();
+
+		/**
+		 * 2do crear instruccion SQL
+		 */
+		String sql = "DELETE FROM productos WHERE CÓDIGO_ARTÍCULO = ?";
+
+		/**
+		 * 3ro preparar la consulta
+		 */
+		mi_statement = mi_conexion.prepareStatement(sql);
+
+		/**
+		 * 4to establecer parametros
+		 */
+		mi_statement.setString(1, codigo_producto);
+
+		/**
+		 * 5to ejecutar query
+		 */
+		mi_statement.execute();
+	}
 }

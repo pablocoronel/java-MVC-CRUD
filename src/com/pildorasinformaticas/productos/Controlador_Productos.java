@@ -87,11 +87,39 @@ public class Controlador_Productos extends HttpServlet {
 			}
 			break;
 
+		case "eliminar":
+			try {
+				eliminarProducto(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
 		default:
 			obtenerProductos(request, response);
 			break;
 		}
 
+	}
+
+	private void eliminarProducto(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+
+		/**
+		 * 1ro capturar el codigo de producto
+		 */
+		String codigo_producto = request.getParameter("id");
+
+		/**
+		 * 2do borrar Producto de la BD
+		 */
+		this.modelo_producto.eliminarProducto(codigo_producto);
+
+		/**
+		 * 3ro volver al listado
+		 */
+		obtenerProductos(request, response);
 	}
 
 	private void actualizarProducto(HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -48,8 +48,14 @@
 		<c:forEach var="tempProd" items="${LISTA_PRODUCTOS}">
 			
 			<!-- link de editar, lo usa el tag A, (value es el Controller a donde va) -->
-			<c:url var="linkTemp" value="Controlador_Productos">
+			<c:url var="linkTempEditar" value="Controlador_Productos">
 				<c:param name="instruccion" value="ver"></c:param>
+				<c:param name="id" value="${tempProd.codigo_articulo}"></c:param>
+			</c:url>
+			
+			<!-- Linl para eliminar registro -->
+			<c:url var="linkTempEliminar" value="Controlador_Productos">
+				<c:param name="instruccion" value="eliminar"></c:param>
 				<c:param name="id" value="${tempProd.codigo_articulo}"></c:param>
 			</c:url>
 			
@@ -61,7 +67,10 @@
 				<td>${tempProd.fecha}</td>
 				<td>${tempProd.importado}</td>
 				<td>${tempProd.pais_origen}</td>
-				<td><a href="${linkTemp }">Editar</a></td>
+				<td>
+					<a href="${linkTempEditar }">Editar</a>
+					<a href="${linkTempEliminar }">Eliminar</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
