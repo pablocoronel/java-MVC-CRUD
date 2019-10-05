@@ -63,6 +63,10 @@ public class Modelo_Producto {
 			productos.add(p);
 		}
 
+		mi_resultset.close();
+		mi_statement.close();
+		mi_conexion.close();
+
 		return productos;
 	}
 
@@ -115,6 +119,14 @@ public class Modelo_Producto {
 		 */
 		try {
 			mi_statement.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			mi_statement.close();
+			mi_conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -179,6 +191,10 @@ public class Modelo_Producto {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			mi_statement.close();
+			mi_resultset.close();
+			mi_conexion.close();
 		}
 
 		/**
@@ -248,6 +264,14 @@ public class Modelo_Producto {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		try {
+			mi_conexion.close();
+			mi_statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void eliminarProducto(String codigo_producto) throws Exception {
@@ -255,29 +279,34 @@ public class Modelo_Producto {
 		Connection mi_conexion = null;
 		PreparedStatement mi_statement = null;
 
-		/**
-		 * 1ro conexion a la BD
-		 */
-		mi_conexion = this.origen_datos.getConnection();
+		try {
+			/**
+			 * 1ro conexion a la BD
+			 */
+			mi_conexion = this.origen_datos.getConnection();
 
-		/**
-		 * 2do crear instruccion SQL
-		 */
-		String sql = "DELETE FROM productos WHERE CÓDIGO_ARTÍCULO = ?";
+			/**
+			 * 2do crear instruccion SQL
+			 */
+			String sql = "DELETE FROM productos WHERE CÓDIGO_ARTÍCULO = ?";
 
-		/**
-		 * 3ro preparar la consulta
-		 */
-		mi_statement = mi_conexion.prepareStatement(sql);
+			/**
+			 * 3ro preparar la consulta
+			 */
+			mi_statement = mi_conexion.prepareStatement(sql);
 
-		/**
-		 * 4to establecer parametros
-		 */
-		mi_statement.setString(1, codigo_producto);
+			/**
+			 * 4to establecer parametros
+			 */
+			mi_statement.setString(1, codigo_producto);
 
-		/**
-		 * 5to ejecutar query
-		 */
-		mi_statement.execute();
+			/**
+			 * 5to ejecutar query
+			 */
+			mi_statement.execute();
+		} finally {
+			mi_statement.close();
+			mi_conexion.close();
+		}
 	}
 }
