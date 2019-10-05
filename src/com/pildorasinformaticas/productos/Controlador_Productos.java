@@ -1,10 +1,10 @@
 package com.pildorasinformaticas.productos;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -78,10 +78,53 @@ public class Controlador_Productos extends HttpServlet {
 			}
 			break;
 
+		case "actualizar":
+			try {
+				actualizarProducto(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
 		default:
 			obtenerProductos(request, response);
 			break;
 		}
+
+	}
+
+	private void actualizarProducto(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		/**
+		 * 1ro leer los datos enviados desde el formulario
+		 */
+		String codigo_articulo = (String) request.getAttribute("codigo_articulo");
+
+		// data a actualizar
+		String seccion = request.getParameter("seccion");
+		String nombre_articulo = request.getParameter("nombre_articulo");
+		double precio = Double.parseDouble(request.getParameter("precio"));
+		Date fecha = (Date) request.getAttribute("fecha");
+		String importado = request.getParameter("importado");
+		String pais_origen = request.getParameter("pais_origen");
+
+		/**
+		 * 2do crear un objeto de tipo Producto con la info del formulario
+		 */
+
+		Producto producto_actualizado = new Producto(codigo_articulo, seccion, nombre_articulo, precio, fecha,
+				importado, pais_origen);
+
+		/**
+		 * 3ro actualizar la BD con la info del objeto Producto
+		 */
+		modelo_producto.actualizarProducto(producto_actualizado);
+
+		/**
+		 * 4to volver al listado con la info actualizada
+		 */
+		obtenerProductos(request, response);
 
 	}
 
@@ -139,6 +182,7 @@ public class Controlador_Productos extends HttpServlet {
 
 	}
 
+	// Este metodo lista los productos y los muestra en una vista JSP
 	private void obtenerProductos(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		List<Producto> productos;

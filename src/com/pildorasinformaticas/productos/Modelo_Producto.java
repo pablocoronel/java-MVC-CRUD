@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.sql.DataSource;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
 public class Modelo_Producto {
 
 	// almacena el pool de conexiones
@@ -155,7 +157,7 @@ public class Modelo_Producto {
 			/**
 			 * 5to ejecutar la consulta
 			 */
-			mi_resultset = mi_statement.executeQuery(sql);
+			mi_resultset = mi_statement.executeQuery();
 
 			/**
 			 * 6to crear el objeto a retornar, con los datos devueltos por la consulta
@@ -185,5 +187,13 @@ public class Modelo_Producto {
 		 * 7mo retornar el objeto
 		 */
 		return el_producto;
+	}
+
+	public void actualizarProducto(Producto el_producto) {
+		// TODO Auto-generated method stub
+		Connection mi_conexion = null;
+		PreparedStatement mi_statement = null;
+		String query = "UPDATE productos SET SECCIÓN = ?, NOMBRE_ARTÍCULO = ?, PRECIO = ?, FECHA = ?, IMPORTADO = ?, PAÍS_DE_ORIGEN = ?";
+
 	}
 }
