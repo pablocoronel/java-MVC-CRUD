@@ -99,13 +99,22 @@ public class Controlador_Productos extends HttpServlet {
 		/**
 		 * 1ro leer los datos enviados desde el formulario
 		 */
-		String codigo_articulo = (String) request.getAttribute("codigo_articulo");
+		String codigo_articulo = request.getParameter("id");
 
 		// data a actualizar
 		String seccion = request.getParameter("seccion");
 		String nombre_articulo = request.getParameter("nombre_articulo");
 		double precio = Double.parseDouble(request.getParameter("precio"));
-		Date fecha = (Date) request.getAttribute("fecha");
+
+		SimpleDateFormat formato_fecha = new SimpleDateFormat("yyyy-MM-dd");
+		Date fecha = null;
+		try {
+			fecha = formato_fecha.parse(request.getParameter("fecha"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		String importado = request.getParameter("importado");
 		String pais_origen = request.getParameter("pais_origen");
 

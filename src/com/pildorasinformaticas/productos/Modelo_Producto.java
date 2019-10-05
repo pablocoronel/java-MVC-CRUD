@@ -3,10 +3,7 @@ package com.pildorasinformaticas.productos;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
-
 import javax.sql.DataSource;
-
-import org.apache.jasper.tagplugins.jstl.core.Out;
 
 public class Modelo_Producto {
 
@@ -174,7 +171,8 @@ public class Modelo_Producto {
 
 				// es new, xq en la declaracion es null, hay que instanciar, no usar los set
 				// sobre un null
-				el_producto = new Producto(seccion, nombre_articulo, precio, fecha, importado, pais_origen);
+				el_producto = new Producto(codigo_articulo, seccion, nombre_articulo, precio, fecha, importado,
+						pais_origen);
 			} else {
 				throw new Exception("No se encontró el articulo: " + codigo_articulo);
 			}
@@ -193,7 +191,62 @@ public class Modelo_Producto {
 		// TODO Auto-generated method stub
 		Connection mi_conexion = null;
 		PreparedStatement mi_statement = null;
-		String query = "UPDATE productos SET SECCIÓN = ?, NOMBRE_ARTÍCULO = ?, PRECIO = ?, FECHA = ?, IMPORTADO = ?, PAÍS_DE_ORIGEN = ?";
 
+		/**
+		 * 1ro establecer la conexion (usa el pool de conexiones)
+		 */
+		try {
+			mi_conexion = origen_datos.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		/**
+		 * 2do crear la sentencia SQL
+		 */
+		String query = "UPDATE productos SET SECCIÓN = ?, NOMBRE_ARTÍCULO = ?, PRECIO = ?, FECHA = ?, IMPORTADO = ?, PAÍS_DE_ORIGEN = ? WHERE CÓDIGO_ARTÍCULO = ?";
+
+		/**
+		 * 3ro crear la consulta preparada
+		 */
+
+		try {
+			mi_statement = mi_conexion.prepareStatement(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		/**
+		 * 4to establecer los parametros
+		 */
+		try {
+			mi_statement.setString(1, el_producto.getSeccion());
+			mi_statement.setString(2, el_producto.getNombre_articulo());
+			mi_statement.setDouble(3, el_producto.getPrecio());
+
+			// es distinta la clase Date
+			java.util.Date utilDate = el_producto.getFecha();
+			java.sql.Date fechaConvertida = new java.sql.Date(utilDate.getTime());
+			mi_statement.setDate(4, fechaConvertida);
+
+			mi_statement.setString(5, el_producto.getImportado());
+			mi_statement.setString(6, el_producto.getPais_origen());
+			mi_statement.setString(7, el_producto.getCodigo_articulo());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		/**
+		 * 5to ejecutar la query
+		 */
+		try {
+			mi_statement.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
